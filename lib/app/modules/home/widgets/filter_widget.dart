@@ -1,9 +1,13 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../controllers/home_controller.dart';
+import 'button_widget.dart';
 
 class FilterWidget extends GetView<HomeController> {
   const FilterWidget({super.key});
@@ -44,7 +48,8 @@ class FilterWidget extends GetView<HomeController> {
               ),
               onRatingUpdate: controller.onRating,
             ),
-          )
+          ),
+          ButtonWidget(),
         ],
       ),
     );

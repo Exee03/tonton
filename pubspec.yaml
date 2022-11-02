@@ -6,7 +6,9 @@ environment:
   sdk: '>=2.18.2 <3.0.0'
 
 dependencies:
+  auto_size_text: ^3.0.0
   cupertino_icons: ^1.0.2
+  device_preview: ^1.1.0
   flutter:
     sdk: flutter
   flutter_rating_bar: ^4.0.1

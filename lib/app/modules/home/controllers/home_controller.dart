@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -110,13 +113,46 @@ class HomeController extends GetxController {
   Future<void> filterDate() async {
     final now = DateTime.now();
 
-    date.value = await showDatePicker(
-      context: Get.context!,
-      initialDate: now,
-      firstDate: DateTime(1990),
-      // lastDate: now,
-      lastDate: DateTime(now.year + 5),
-    );
+    if (Platform.isIOS) {
+      _showDialog(
+        CupertinoDatePicker(
+          initialDateTime: now,
+          mode: CupertinoDatePickerMode.date,
+          // This is called when the user changes the date.
+          onDateTimeChanged: (value) {
+            date.value = value;
+          },
+        ),
+      );
+    } else {
+      date.value = await showDatePicker(
+        context: Get.context!,
+        initialDate: now,
+        firstDate: DateTime(1990),
+        // lastDate: now,
+        lastDate: DateTime(now.year + 5),
+      );
+    }
+  }
+
+  void _showDialog(Widget child) {
+    showCupertinoModalPopup<void>(
+        context: Get.context!,
+        builder: (BuildContext context) => Container(
+              height: 216,
+              padding: const EdgeInsets.only(top: 6.0),
+              // The Bottom margin is provided to align the popup above the system navigation bar.
+              margin: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom,
+              ),
+              // Provide a background color for the popup.
+              color: CupertinoColors.systemBackground.resolveFrom(context),
+              // Use a SafeArea widget to avoid system overlaps.
+              child: SafeArea(
+                top: false,
+                child: child,
+              ),
+            ));
   }
 
   void onRating(double value) {
