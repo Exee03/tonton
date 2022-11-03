@@ -1,12 +1,16 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:device_preview/device_preview.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 import 'app/routes/app_pages.dart';
 
-void main() {
+Future<void> main() async {
+  await GetStorage.init();
+  await dotenv.load(fileName: ".env");
   runApp(
     DevicePreview(
       // enabled: !kReleaseMode,
@@ -27,6 +31,7 @@ class App extends StatelessWidget {
       builder: DevicePreview.appBuilder,
       title: "Application",
       initialRoute: AppPages.INITIAL,
+      unknownRoute: AppPages.UNKNOWN,
       getPages: AppPages.routes,
       theme: ThemeData.dark(
         useMaterial3: true,

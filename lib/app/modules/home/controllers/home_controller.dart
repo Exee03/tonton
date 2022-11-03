@@ -1,9 +1,11 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+
 import 'package:tonton/app/modules/home/widgets/filter_widget.dart';
 
 class Movie {
@@ -20,6 +22,32 @@ class Movie {
     this.imageUrl,
     this.releaseAt,
   });
+
+  Map<String, dynamic> toMap() {
+    return {
+      'title': title,
+      'description': description,
+      'rating': rating,
+      'imageUrl': imageUrl,
+      'releaseAt': releaseAt?.millisecondsSinceEpoch,
+    };
+  }
+
+  factory Movie.fromMap(Map<String, dynamic> map) {
+    return Movie(
+      title: map['title'],
+      description: map['description'],
+      rating: map['rating']?.toInt(),
+      imageUrl: map['imageUrl'],
+      releaseAt: map['releaseAt'] != null
+          ? DateTime.fromMillisecondsSinceEpoch(map['releaseAt'])
+          : null,
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory Movie.fromJson(String source) => Movie.fromMap(json.decode(source));
 }
 
 class HomeController extends GetxController {

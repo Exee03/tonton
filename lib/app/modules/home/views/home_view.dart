@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:tonton/app/modules/home/widgets/body_widget.dart';
+import 'package:tonton/app/routes/app_pages.dart';
 
 import '../controllers/home_controller.dart';
 
@@ -27,6 +28,25 @@ class HomeView extends GetView<HomeController> {
         ],
       ),
       body: const BodyWidget(),
+      floatingActionButton: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          FloatingActionButton(
+            onPressed: () {
+              Get.toNamed(Routes.CREATE_MOVIE);
+            },
+            child: const Icon(Icons.add),
+          ),
+          const SizedBox(height: 8),
+          FloatingActionButton(
+            heroTag: '',
+            onPressed: () {
+              Get.toNamed(Routes.MOVIE_ONLINE);
+            },
+            child: const Icon(Icons.travel_explore),
+          ),
+        ],
+      ),
     );
   }
 }
