@@ -5,8 +5,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:tonton/app/data/providers/user_provider.dart';
 
 import 'package:tonton/app/modules/home/widgets/filter_widget.dart';
+
+import '../../../routes/app_pages.dart';
+import '../../../services/auth_service.dart';
 
 class Movie {
   String? title;
@@ -70,6 +74,8 @@ class HomeController extends GetxController {
     ),
   ];
 
+  final _authService = Get.find<AuthService>();
+  final _userProvider = Get.find<UserProvider>();
   final count = 0.obs;
   final keyword = ''.obs;
   // final keyword = Rx<String>('');
@@ -119,6 +125,7 @@ class HomeController extends GetxController {
   @override
   void onReady() {
     super.onReady();
+    getUser();
   }
 
   @override
@@ -127,6 +134,15 @@ class HomeController extends GetxController {
   }
 
   void increment() => count.value++;
+
+  getUser() async {
+    try {
+      final user = await _userProvider.getUser();
+      print(user?.toJson());
+    } catch (e) {
+      print(e);
+    }
+  }
 
   void onSearch(String value) {
     keyword.value = value;
@@ -185,5 +201,10 @@ class HomeController extends GetxController {
 
   void onRating(double value) {
     rating.value = value;
+  }
+
+  void logout() {
+    _authService.deleteToken();
+    Get.offAllNamed(Routes.REGISTER);
   }
 }

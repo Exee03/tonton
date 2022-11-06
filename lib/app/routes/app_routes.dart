@@ -9,15 +9,17 @@ abstract class Routes {
   static const NOT_FOUND = _Paths.NOT_FOUND;
   static const CREATE_MOVIE = _Paths.CREATE_MOVIE;
   static const MOVIE_ONLINE = _Paths.MOVIE_ONLINE;
+  static const REGISTER = _Paths.REGISTER;
 }
 
 abstract class _Paths {
   _Paths._();
   static const HOME = '/home';
-  // static const MOVIE_DETAIL = '/movie-detail';
-  static const MOVIE_DETAIL = '/movie-detail/:id';
+  static const MOVIE_DETAIL = '/movie-detail';
+  // static const MOVIE_DETAIL = '/movie-detail/:id';
   static const SAMPLE_NAVIGATION = '/sample-navigation';
   static const NOT_FOUND = '/not-found';
   static const CREATE_MOVIE = '/create-movie';
   static const MOVIE_ONLINE = '/movie-online';
+  static const REGISTER = '/register';
 }
