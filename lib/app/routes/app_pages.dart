@@ -21,7 +21,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.SAMPLE_NAVIGATION;
+  static const INITIAL = Routes.HOME;
   static final UNKNOWN = GetPage(
     name: _Paths.NOT_FOUND,
     page: () => const NotFoundView(),
@@ -66,9 +66,6 @@ class AppPages {
       name: _Paths.REGISTER,
       page: () => const RegisterView(),
       binding: RegisterBinding(),
-      middlewares: [
-        EnsureNotAuthedMiddleware(),
-      ],
     ),
   ];
 }
